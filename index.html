@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EmieWell — Postpartum Recovery for New Mothers</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* ─── Typography ─────────────────────────────── */
+    body {
+      font-family: 'Georgia', serif;
+      background: #FAF8F4;
+      color: #0D1F3C;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── Brand Colors ───────────────────────────── */
+    :root {
+      --navy: #1B3872;
+      --navy-dark: #0F2352;
+      --navy-deeper: #091840;
+      --navy-light: #2A4F9E;
+      --navy-pale: #D6E0F5;
+      --navy-wash: #EBF0FA;
+      --ink: #0D1F3C;
+      --ink-mid: #3A4A6A;
+      --ink-muted: #7888A8;
+      --cream: #FAF8F4;
+      --warm: #F5F0E8;
+      --warm-mid: #EDE6D8;
+    }
+
+    /* ─── Grain Texture ──────────────────────────── */
+    .grain-overlay {
+      position: relative;
+    }
+    .grain-overlay::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.045'/%3E%3C/svg%3E");
+      pointer-events: none;
+      border-radius: inherit;
+    }
+
+    /* ─── Headings ───────────────────────────────── */
+    .heading-display {
+      font-family: 'Georgia', serif;
+      letter-spacing: -0.03em;
+      line-height: 1.08;
+    }
+    .body-text {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+      line-height: 1.7;
+    }
+
+    /* ─── Nav ────────────────────────────────────── */
+    .nav-link {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--ink-mid);
+      text-decoration: none;
+      letter-spacing: 0.01em;
+      transition: color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .nav-link:hover { color: var(--navy); }
+    .nav-link:focus-visible { outline: 2px solid var(--navy); outline-offset: 4px; border-radius: 2px; }
+
+    /* ─── Buttons ────────────────────────────────── */
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--navy);
+      color: #fff;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+      font-size: 0.9375rem;
+      font-weight: 600;
+      padding: 14px 28px;
+      border-radius: 6px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      box-shadow:
+        0 2px 4px rgba(27,56,114,0.18),
+        0 6px 20px rgba(27,56,114,0.28),
+        0 1px 0 rgba(255,255,255,0.08) inset;
+      transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.18s ease, background 0.15s ease;
+    }
+    .btn-primary:hover {
+      background: var(--navy-light);
+      transform: translateY(-2px);
+      box-shadow:
+        0 4px 8px rgba(27,56,114,0.22),
+        0 12px 32px rgba(27,56,114,0.32);
+    }
+    .btn-primary:active {
+      transform: translateY(0);
+      box-shadow: 0 1px 4px rgba(27,56,114,0.2);
+    }
+    .btn-primary:focus-visible { outline: 3px solid var(--navy-pale); outline-offset: 3px; }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: var(--navy);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+      font-size: 0.9375rem;
+      font-weight: 600;
+      padding: 13px 27px;
+      border-radius: 6px;
+      text-decoration: none;
+      border: 1.5px solid var(--navy);
+      cursor: pointer;
+      transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.15s ease, color 0.15s ease;
+    }
+    .btn-ghost:hover {
+      background: var(--navy-wash);
+      transform: translateY(-2px);
+    }
+    .btn-ghost:active { transform: translateY(0); }
+    .btn-ghost:focus-visible { outline: 3px solid var(--navy-pale); outline-offset: 3px; }
+
+    /* ─── Cards ──────────────────────────────────── */
+    .card {
+      background: #fff;
+      border: 1px solid rgba(27,56,114,0.07);
+      border-radius: 16px;
+      box-shadow:
+        0 1px 3px rgba(27,56,114,0.04),
+        0 8px 24px rgba(27,56,114,0.06),
+        0 24px 64px rgba(27,56,114,0.03);
+      transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.22s ease;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow:
+        0 2px 6px rgba(27,56,114,0.06),
+        0 16px 40px rgba(27,56,114,0.1),
+        0 32px 80px rgba(27,56,114,0.05);
+    }
+
+    /* ─── Quote ───────────────────────────────────── */
+    .quote-mark {
+      font-family: 'Georgia', serif;
+      font-size: 5rem;
+      line-height: 0.8;
+      color: var(--navy);
+      opacity: 0.1;
+    }
+
+    /* ─── Divider ─────────────────────────────────── */
+    .section-divider {
+      width: 48px;
+      height: 3px;
+      background: var(--navy);
+      border-radius: 99px;
+      opacity: 0.5;
+    }
+
+    /* ─── Input ───────────────────────────────────── */
+    .email-input {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+      font-size: 1rem;
+      padding: 14px 20px;
+      border: 1.5px solid rgba(27,56,114,0.2);
+      border-radius: 6px;
+      background: #fff;
+      color: var(--ink);
+      outline: none;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+      width: 100%;
+    }
+    .email-input::placeholder { color: var(--ink-muted); }
+    .email-input:focus {
+      border-color: var(--navy);
+      box-shadow: 0 0 0 4px rgba(27,56,114,0.08);
+    }
+
+    /* ─── Hero Gradient ───────────────────────────── */
+    .hero-bg {
+      background:
+        radial-gradient(ellipse 80% 60% at 70% 0%, rgba(27,56,114,0.05) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 40% at 10% 100%, rgba(213,180,130,0.08) 0%, transparent 60%),
+        #FAF8F4;
+    }
+
+    /* ─── CTA Section ─────────────────────────────── */
+    .cta-bg {
+      background:
+        radial-gradient(ellipse 80% 100% at 50% 50%, rgba(27,56,114,0.06) 0%, transparent 70%),
+        #EDE6D8;
+    }
+
+    /* ─── Scrollbar ───────────────────────────────── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #F5F0E8; }
+    ::-webkit-scrollbar-thumb { background: rgba(27,56,114,0.2); border-radius: 99px; }
+
+    /* ─── Animated Word ───────────────────────────── */
+    .word-cycle-wrap {
+      display: inline-block;
+      position: relative;
+      min-width: 3ch;
+    }
+    .word-cycle {
+      display: inline-block;
+      color: var(--navy);
+      font-style: italic;
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .word-cycle.exiting {
+      opacity: 0;
+      transform: translateY(-12px);
+    }
+    .word-cycle.entering {
+      opacity: 0;
+      transform: translateY(12px);
+      transition: none;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════
+     NAV
+═══════════════════════════════════════════════════ -->
+<header style="position:sticky;top:0;z-index:50;background:rgba(250,248,244,0.94);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(27,56,114,0.08);">
+  <nav style="max-width:1120px;margin:0 auto;padding:0 32px;height:72px;display:flex;align-items:center;justify-content:space-between;gap:32px;">
+    <!-- Logo + Name -->
+    <a href="#" style="display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0;">
+      <img src="brand_assets/stork logo.JPG" alt="EmieWell stork logo" style="height:40px;width:auto;object-fit:contain;" />
+      <span style="font-family:'Georgia',serif;font-size:1.375rem;font-weight:700;color:#1B3872;letter-spacing:-0.02em;">EmieWell</span>
+    </a>
+
+    <!-- Nav Links -->
+    <div style="display:flex;align-items:center;gap:36px;">
+      <a href="#about" class="nav-link">About</a>
+      <a href="#services" class="nav-link">Services</a>
+      <a href="#how-it-works" class="nav-link">How It Works</a>
+      <a href="#stories" class="nav-link">Stories</a>
+    </div>
+
+    <!-- CTA -->
+    <a href="#join" class="btn-primary" style="font-size:0.875rem;padding:10px 22px;flex-shrink:0;">
+      Get Started
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="opacity:0.85"><path d="M1 7h12M8 3l5 4-5 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </nav>
+</header>
+
+<!-- ═══════════════════════════════════════════════════
+     HERO
+═══════════════════════════════════════════════════ -->
+<section class="hero-bg" style="padding:96px 32px 80px;min-height:calc(100vh - 72px);display:flex;align-items:center;">
+  <div style="max-width:1120px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;">
+
+    <!-- Left: Text -->
+    <div>
+      <div style="display:inline-flex;align-items:center;gap:8px;background:var(--navy-pale);border:1px solid rgba(27,56,114,0.18);border-radius:99px;padding:6px 16px;margin-bottom:32px;">
+        <span style="width:6px;height:6px;background:var(--navy);border-radius:50%;display:inline-block;"></span>
+        <span class="body-text" style="font-size:0.8125rem;font-weight:600;color:var(--navy);letter-spacing:0.04em;text-transform:uppercase;">Postpartum Recovery</span>
+      </div>
+
+      <h1 class="heading-display" style="font-size:clamp(2.75rem,5vw,4.25rem);color:var(--ink);margin-bottom:24px;">
+        Postpartum <span class="word-cycle-wrap"><span class="word-cycle" id="cycleWord">Care</span></span><br />
+        Simplified.
+      </h1>
+
+      <p class="body-text" style="font-size:1.125rem;color:var(--ink-mid);margin-bottom:40px;max-width:460px;">
+        EmieWell supports new mothers through expert-guided postpartum recovery — building strength, balance, and confidence in the weeks and months after birth.
+      </p>
+
+      <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+        <a href="#join" class="btn-primary">Begin Your Recovery</a>
+        <a href="#how-it-works" class="btn-ghost">How it works</a>
+      </div>
+
+      <!-- Trust signals -->
+      <div style="display:flex;align-items:center;gap:28px;margin-top:48px;padding-top:40px;border-top:1px solid rgba(27,56,114,0.1);">
+        <div style="text-align:left;">
+          <div class="heading-display" style="font-size:1.875rem;color:var(--navy);">2,000+</div>
+          <div class="body-text" style="font-size:0.8125rem;color:var(--ink-muted);margin-top:2px;">Mothers supported</div>
+        </div>
+        <div style="width:1px;height:36px;background:rgba(27,56,114,0.12);"></div>
+        <div style="text-align:left;">
+          <div class="heading-display" style="font-size:1.875rem;color:var(--navy);">12 wk</div>
+          <div class="body-text" style="font-size:0.8125rem;color:var(--ink-muted);margin-top:2px;">Recovery program</div>
+        </div>
+        <div style="width:1px;height:36px;background:rgba(27,56,114,0.12);"></div>
+        <div style="text-align:left;">
+          <div class="heading-display" style="font-size:1.875rem;color:var(--navy);">98%</div>
+          <div class="body-text" style="font-size:0.8125rem;color:var(--ink-muted);margin-top:2px;">Satisfaction rate</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Visual -->
+    <div style="position:relative;display:flex;justify-content:center;">
+      <!-- Background rings -->
+      <div style="position:absolute;width:480px;height:480px;border-radius:50%;background:radial-gradient(circle, rgba(27,56,114,0.05) 0%, transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);"></div>
+      <div style="position:absolute;width:380px;height:380px;border-radius:50%;border:1px solid rgba(27,56,114,0.09);top:50%;left:50%;transform:translate(-50%,-50%);"></div>
+      <div style="position:absolute;width:280px;height:280px;border-radius:50%;border:1px dashed rgba(27,56,114,0.1);top:50%;left:50%;transform:translate(-50%,-50%);"></div>
+      <!-- Main image -->
+      <div style="position:relative;width:340px;height:400px;border-radius:24px;overflow:hidden;box-shadow:0 4px 16px rgba(27,56,114,0.1),0 20px 60px rgba(27,56,114,0.14),0 40px 100px rgba(13,31,60,0.07);">
+        <img src="https://placehold.co/680x800/dce5f5/1B3872?text=Mother+%26+Child" alt="Mother and child" style="width:100%;height:100%;object-fit:cover;" />
+        <div style="position:absolute;inset:0;background:linear-gradient(to top, rgba(13,31,60,0.4) 0%, transparent 50%);"></div>
+        <div style="position:absolute;inset:0;background:rgba(27,56,114,0.08);mix-blend-mode:multiply;"></div>
+      </div>
+      <!-- Floating badge -->
+      <div style="position:absolute;bottom:32px;left:-20px;background:#fff;border-radius:12px;padding:14px 18px;box-shadow:0 4px 20px rgba(27,56,114,0.12),0 1px 4px rgba(27,56,114,0.07);display:flex;align-items:center;gap:12px;">
+        <div style="width:36px;height:36px;background:var(--navy-pale);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z" stroke="#1B3872" stroke-width="2"/><path d="M8 12L11 15L16 9" stroke="#1B3872" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div>
+          <div class="body-text" style="font-size:0.75rem;font-weight:700;color:var(--ink);">Expert-designed</div>
+          <div class="body-text" style="font-size:0.6875rem;color:var(--ink-muted);">by OBGYNs & PTs</div>
+        </div>
+      </div>
+      <!-- Floating stork logo -->
+      <div style="position:absolute;top:20px;right:-16px;background:#fff;border-radius:12px;padding:10px;box-shadow:0 4px 20px rgba(27,56,114,0.1);">
+        <img src="brand_assets/stork logo.JPG" alt="EmieWell" style="width:48px;height:48px;object-fit:contain;" />
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     MISSION STATEMENT
+═══════════════════════════════════════════════════ -->
+<section id="about" style="padding:96px 32px;background:#F5F0E8;">
+  <div style="max-width:820px;margin:0 auto;text-align:center;">
+    <div class="section-divider" style="margin:0 auto 32px;"></div>
+    <h2 class="heading-display" style="font-size:clamp(1.875rem,3.5vw,3rem);color:var(--ink);margin-bottom:24px;">
+      The fourth trimester deserves<br/>as much care as the first three.
+    </h2>
+    <p class="body-text" style="font-size:1.125rem;color:var(--ink-mid);margin-bottom:40px;">
+      Society celebrates pregnancy — but too often abandons mothers the moment a baby arrives. EmieWell exists to change that. We believe postpartum recovery is a medical necessity, not a luxury. Every new mother deserves a clear, compassionate path back to herself.
+    </p>
+    <!-- Values row -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;text-align:left;margin-top:56px;">
+      <div style="padding:28px;background:rgba(250,248,244,0.7);border-radius:12px;border:1px solid rgba(27,56,114,0.07);">
+        <div style="width:40px;height:40px;background:var(--navy-pale);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" stroke="#1B3872" stroke-width="2" stroke-linejoin="round"/></svg>
+        </div>
+        <h3 style="font-family:'Georgia',serif;font-size:1rem;font-weight:700;color:var(--ink);margin-bottom:8px;letter-spacing:-0.01em;">Compassionate Care</h3>
+        <p class="body-text" style="font-size:0.875rem;color:var(--ink-mid);">We meet every mother where she is — no judgment, no one-size-fits-all.</p>
+      </div>
+      <div style="padding:28px;background:rgba(250,248,244,0.7);border-radius:12px;border:1px solid rgba(27,56,114,0.07);">
+        <div style="width:40px;height:40px;background:var(--navy-pale);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M9 11l3 3L22 4" stroke="#1B3872" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" stroke="#1B3872" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3 style="font-family:'Georgia',serif;font-size:1rem;font-weight:700;color:var(--ink);margin-bottom:8px;letter-spacing:-0.01em;">Evidence-Based</h3>
+        <p class="body-text" style="font-size:0.875rem;color:var(--ink-mid);">Every protocol is grounded in peer-reviewed research and clinical practice.</p>
+      </div>
+      <div style="padding:28px;background:rgba(250,248,244,0.7);border-radius:12px;border:1px solid rgba(27,56,114,0.07);">
+        <div style="width:40px;height:40px;background:var(--navy-pale);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" stroke="#1B3872" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="7" r="4" stroke="#1B3872" stroke-width="2"/><path d="M23 21v-2a4 4 0 00-3-3.87" stroke="#1B3872" stroke-width="2" stroke-linecap="round"/><path d="M16 3.13a4 4 0 010 7.75" stroke="#1B3872" stroke-width="2" stroke-linecap="round"/></svg>
+        </div>
+        <h3 style="font-family:'Georgia',serif;font-size:1rem;font-weight:700;color:var(--ink);margin-bottom:8px;letter-spacing:-0.01em;">Community First</h3>
+        <p class="body-text" style="font-size:0.875rem;color:var(--ink-mid);">You're never alone. Connect with mothers walking the same path.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     SERVICES
+═══════════════════════════════════════════════════ -->
+<section id="services" style="padding:96px 32px;background:var(--cream);">
+  <div style="max-width:1120px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:64px;">
+      <div class="section-divider" style="margin:0 auto 24px;"></div>
+      <h2 class="heading-display" style="font-size:clamp(1.875rem,3.5vw,3rem);color:var(--ink);margin-bottom:16px;">
+        Everything your recovery requires
+      </h2>
+      <p class="body-text" style="font-size:1.0625rem;color:var(--ink-mid);max-width:520px;margin:0 auto;">
+        A complete postpartum support system, built around your body, your baby, and your life.
+      </p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;">
+
+      <div class="card" style="padding:36px 28px;">
+        <div style="width:48px;height:48px;background:linear-gradient(135deg,var(--navy-pale),var(--navy-wash));border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:24px;box-shadow:0 2px 8px rgba(27,56,114,0.08);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" stroke="#1B3872" stroke-width="2" stroke-linejoin="round"/><polyline points="9 22 9 12 15 12 15 22" stroke="#1B3872" stroke-width="2" stroke-linejoin="round"/></svg>
+        </div>
+        <h3 style="font-family:'Georgia',serif;font-size:1.1875rem;font-weight:700;color:var(--ink);margin-bottom:12px;letter-spacing:-0.02em;">Personalized Recovery Plans</h3>
+        <p class="body-text" style="font-size:0.9375rem;color:var(--ink-mid);">Tailored week-by-week programs based on your birth type, health history, and recovery goals — adapting as your needs change.</p>
+      </div>
+
+      <div class="card" style="padding:36px 28px;">
+        <div style="width:48px;height:48px;background:linear-gradient(135deg,var(--navy-pale),var(--navy-wash));border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:24px;box-shadow:0 2px 8px rgba(27,56,114,0.08);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke="#1B3872" stroke-width="2" stroke-linejoin="round"/><polyline points="14 2 14 8 20 8" stroke="#1B3872" stroke-width="2" stroke-linejoin="round"/><line x1="16" y1="13" x2="8" y2="13" stroke="#1B3872" stroke-width="2" stroke-linecap="round"/><line x1="16" y1="17" x2="8" y2="17" stroke="#1B3872" stroke-width="2" stroke-linecap="round"/></svg>
+        </div>
+        <h3 style="font-family:'Georgia',serif;font-size:1.1875rem;font-weight:700;color:var(--ink);margin-bottom:12px;letter-spacing:-0.02em;">Expert-Led Guidance</h3>
+        <p class="body-text" style="font-size:0.9375rem;color:var(--ink-mid);">Direct access to OBGYNs, pelvic floor physical therapists, lactation consultants, and postpartum mental health specialists.</p>
+      </div>
+
+      <div class="card" style="padding:36px 28px;">
+        <div style="width:48px;height:48px;background:linear-gradient(135deg,var(--navy-pale),var(--navy-wash));border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:24px;box-shadow:0 2px 8px rgba(27,56,114,0.08);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M22 12h-4l-3 9L9 3l-3 9H2" stroke="#1B3872" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3 style="font-family:'Georgia',serif;font-size:1.1875rem;font-weight:700;color:var(--ink);margin-bottom:12px;letter-spacing:-0.02em;">Progress Tracking</h3>
+        <p class="body-text" style="font-size:0.9375rem;color:var(--ink-mid);">Track your physical recovery, sleep, mood, and energy in one dashboard. Visualize milestones and celebrate every step forward.</p>
+      </div>
+
+      <div class="card" style="padding:36px 28px;">
+        <div style="width:48px;height:48px;background:linear-gradient(135deg,var(--navy-pale),var(--navy-wash));border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:24px;box-shadow:0 2px 8px rgba(27,56,114,0.08);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#1B3872" stroke-width="2"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32" stroke="#1B3872" stroke-width="2" stroke-linecap="round"/></svg>
+        </div>
+        <h3 style="font-family:'Georgia',serif;font-size:1.1875rem;font-weight:700;color:var(--ink);margin-bottom:12px;letter-spacing:-0.02em;">Mother Community</h3>
+        <p class="body-text" style="font-size:0.9375rem;color:var(--ink-mid);">A private, moderated space to connect with other new mothers. Share experiences, ask questions, and find solidarity.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     HOW IT WORKS
+═══════════════════════════════════════════════════ -->
+<section id="how-it-works" style="padding:96px 32px;background:#F5F0E8;">
+  <div style="max-width:1120px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:64px;">
+      <div class="section-divider" style="margin:0 auto 24px;"></div>
+      <h2 class="heading-display" style="font-size:clamp(1.875rem,3.5vw,3rem);color:var(--ink);margin-bottom:16px;">
+        Your path to feeling like yourself again
+      </h2>
+      <p class="body-text" style="font-size:1.0625rem;color:var(--ink-mid);max-width:480px;margin:0 auto;">
+        Simple to start. Designed to last.
+      </p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:48px;position:relative;">
+      <!-- Connector line -->
+      <div style="position:absolute;top:28px;left:calc(16.67% + 24px);right:calc(16.67% + 24px);height:1px;background:linear-gradient(to right,rgba(27,56,114,0.1),rgba(27,56,114,0.28),rgba(27,56,114,0.1));pointer-events:none;"></div>
+
+      <div style="text-align:center;padding:0 16px;">
+        <div style="position:relative;display:inline-flex;align-items:center;justify-content:center;width:56px;height:56px;background:var(--cream);border:2px solid var(--navy);border-radius:50%;margin-bottom:28px;box-shadow:0 0 0 8px rgba(27,56,114,0.05);">
+          <span style="font-family:'Georgia',serif;font-size:1.25rem;font-weight:700;color:var(--navy);">1</span>
+        </div>
+        <h3 style="font-family:'Georgia',serif;font-size:1.25rem;font-weight:700;color:var(--ink);margin-bottom:12px;letter-spacing:-0.02em;">Take the Assessment</h3>
+        <p class="body-text" style="font-size:0.9375rem;color:var(--ink-mid);">Answer a short health questionnaire about your birth experience and current symptoms. Takes 5 minutes.</p>
+      </div>
+
+      <div style="text-align:center;padding:0 16px;">
+        <div style="position:relative;display:inline-flex;align-items:center;justify-content:center;width:56px;height:56px;background:var(--navy);border-radius:50%;margin-bottom:28px;box-shadow:0 0 0 8px rgba(27,56,114,0.07),0 4px 16px rgba(27,56,114,0.24);">
+          <span style="font-family:'Georgia',serif;font-size:1.25rem;font-weight:700;color:#fff;">2</span>
+        </div>
+        <h3 style="font-family:'Georgia',serif;font-size:1.25rem;font-weight:700;color:var(--ink);margin-bottom:12px;letter-spacing:-0.02em;">Get Your Plan</h3>
+        <p class="body-text" style="font-size:0.9375rem;color:var(--ink-mid);">Receive a personalized 12-week recovery roadmap, matched to your unique needs and reviewed by a specialist.</p>
+      </div>
+
+      <div style="text-align:center;padding:0 16px;">
+        <div style="position:relative;display:inline-flex;align-items:center;justify-content:center;width:56px;height:56px;background:var(--cream);border:2px solid var(--navy);border-radius:50%;margin-bottom:28px;box-shadow:0 0 0 8px rgba(27,56,114,0.05);">
+          <span style="font-family:'Georgia',serif;font-size:1.25rem;font-weight:700;color:var(--navy);">3</span>
+        </div>
+        <h3 style="font-family:'Georgia',serif;font-size:1.25rem;font-weight:700;color:var(--ink);margin-bottom:12px;letter-spacing:-0.02em;">Recover With Support</h3>
+        <p class="body-text" style="font-size:0.9375rem;color:var(--ink-mid);">Follow your plan with guidance from experts and community. Adjust as you grow stronger — at your own pace.</p>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:56px;">
+      <a href="#join" class="btn-primary">Start Your Assessment — Free</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     TESTIMONIALS
+═══════════════════════════════════════════════════ -->
+<section id="stories" style="padding:96px 32px;background:var(--navy-wash);">
+  <div style="max-width:1120px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:64px;">
+      <div class="section-divider" style="margin:0 auto 24px;"></div>
+      <h2 class="heading-display" style="font-size:clamp(1.875rem,3.5vw,3rem);color:var(--ink);margin-bottom:16px;">
+        Stories from EmieWell mothers
+      </h2>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;">
+
+      <div class="card" style="padding:36px 28px;">
+        <div class="quote-mark">&ldquo;</div>
+        <p class="body-text" style="font-size:1rem;color:var(--ink-mid);margin:8px 0 28px;font-style:italic;line-height:1.75;">"I didn't realize how disconnected I felt from my own body until EmieWell helped me rebuild — one week at a time. By week 8, I felt more like myself than I had in months."</p>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <img src="https://placehold.co/40x40/d6e0f5/1B3872?text=SR" alt="Sarah R." style="width:40px;height:40px;border-radius:50%;object-fit:cover;" />
+          <div>
+            <div style="font-family:'Georgia',serif;font-size:0.9375rem;font-weight:700;color:var(--ink);">Sarah R.</div>
+            <div class="body-text" style="font-size:0.8125rem;color:var(--ink-muted);">Mother of 1 — C-section recovery</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="padding:36px 28px;">
+        <div class="quote-mark">&ldquo;</div>
+        <p class="body-text" style="font-size:1rem;color:var(--ink-mid);margin:8px 0 28px;font-style:italic;line-height:1.75;">"The pelvic floor guidance alone was worth it. My OB kept saying 'take it easy' but never told me what that actually meant. EmieWell gave me a real roadmap."</p>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <img src="https://placehold.co/40x40/d6e0f5/1B3872?text=MK" alt="Maya K." style="width:40px;height:40px;border-radius:50%;object-fit:cover;" />
+          <div>
+            <div style="font-family:'Georgia',serif;font-size:0.9375rem;font-weight:700;color:var(--ink);">Maya K.</div>
+            <div class="body-text" style="font-size:0.8125rem;color:var(--ink-muted);">Mother of 2 — vaginal delivery</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="padding:36px 28px;">
+        <div class="quote-mark">&ldquo;</div>
+        <p class="body-text" style="font-size:1rem;color:var(--ink-mid);margin:8px 0 28px;font-style:italic;line-height:1.75;">"I struggled with postpartum anxiety and felt invisible in our healthcare system. EmieWell connected me to a mental health specialist within days. I felt seen for the first time."</p>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <img src="https://placehold.co/40x40/d6e0f5/1B3872?text=LP" alt="Lena P." style="width:40px;height:40px;border-radius:50%;object-fit:cover;" />
+          <div>
+            <div style="font-family:'Georgia',serif;font-size:0.9375rem;font-weight:700;color:var(--ink);">Lena P.</div>
+            <div class="body-text" style="font-size:0.8125rem;color:var(--ink-muted);">First-time mother — twin birth</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     JOIN / CTA
+═══════════════════════════════════════════════════ -->
+<section id="join" class="cta-bg grain-overlay" style="padding:104px 32px;overflow:hidden;">
+  <div style="max-width:640px;margin:0 auto;text-align:center;position:relative;z-index:1;">
+    <img src="brand_assets/stork logo.JPG" alt="EmieWell" style="width:64px;height:64px;object-fit:contain;margin:0 auto 24px;display:block;opacity:0.8;" />
+    <h2 class="heading-display" style="font-size:clamp(2rem,4vw,3rem);color:var(--ink);margin-bottom:20px;">
+      Begin your recovery journey today
+    </h2>
+    <p class="body-text" style="font-size:1.0625rem;color:var(--ink-mid);margin-bottom:40px;">
+      Join thousands of mothers who've reclaimed their strength and wellbeing with EmieWell. Your first assessment is completely free.
+    </p>
+
+    <form style="display:flex;gap:12px;max-width:480px;margin:0 auto;" onsubmit="return false;">
+      <input type="email" class="email-input" placeholder="Your email address" style="flex:1;" />
+      <button type="submit" class="btn-primary" style="flex-shrink:0;white-space:nowrap;">Get Started</button>
+    </form>
+
+    <p class="body-text" style="font-size:0.8125rem;color:var(--ink-muted);margin-top:16px;">
+      No credit card required. Unsubscribe anytime.
+    </p>
+
+    <div style="display:flex;justify-content:center;gap:40px;margin-top:56px;padding-top:48px;border-top:1px solid rgba(27,56,114,0.1);">
+      <div>
+        <div class="heading-display" style="font-size:2rem;color:var(--navy);">2,000+</div>
+        <div class="body-text" style="font-size:0.8125rem;color:var(--ink-muted);margin-top:4px;">Mothers supported</div>
+      </div>
+      <div>
+        <div class="heading-display" style="font-size:2rem;color:var(--navy);">4.9★</div>
+        <div class="body-text" style="font-size:0.8125rem;color:var(--ink-muted);margin-top:4px;">Average rating</div>
+      </div>
+      <div>
+        <div class="heading-display" style="font-size:2rem;color:var(--navy);">12 wk</div>
+        <div class="body-text" style="font-size:0.8125rem;color:var(--ink-muted);margin-top:4px;">Full program</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     FOOTER
+═══════════════════════════════════════════════════ -->
+<footer style="background:var(--ink);padding:64px 32px 40px;">
+  <div style="max-width:1120px;margin:0 auto;">
+    <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,0.08);">
+
+      <div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+          <img src="brand_assets/stork logo.JPG" alt="EmieWell" style="width:36px;height:36px;object-fit:contain;filter:brightness(0) invert(1);opacity:0.9;" />
+          <span style="font-family:'Georgia',serif;font-size:1.25rem;font-weight:700;color:#fff;letter-spacing:-0.02em;">EmieWell</span>
+        </div>
+        <p class="body-text" style="font-size:0.9rem;color:rgba(255,255,255,0.5);max-width:260px;line-height:1.65;">
+          Committed to improving postpartum recovery for every new mother. Science-backed. Community-driven. Always compassionate.
+        </p>
+      </div>
+
+      <div>
+        <h4 style="font-family:-apple-system,sans-serif;font-size:0.75rem;font-weight:700;color:rgba(255,255,255,0.35);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:16px;">Company</h4>
+        <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px;">
+          <li><a href="#" style="font-family:-apple-system,sans-serif;font-size:0.9rem;color:rgba(255,255,255,0.6);text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">About Us</a></li>
+          <li><a href="#" style="font-family:-apple-system,sans-serif;font-size:0.9rem;color:rgba(255,255,255,0.6);text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">Our Team</a></li>
+          <li><a href="#" style="font-family:-apple-system,sans-serif;font-size:0.9rem;color:rgba(255,255,255,0.6);text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">Careers</a></li>
+          <li><a href="#" style="font-family:-apple-system,sans-serif;font-size:0.9rem;color:rgba(255,255,255,0.6);text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">Press</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 style="font-family:-apple-system,sans-serif;font-size:0.75rem;font-weight:700;color:rgba(255,255,255,0.35);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:16px;">Resources</h4>
+        <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px;">
+          <li><a href="#" style="font-family:-apple-system,sans-serif;font-size:0.9rem;color:rgba(255,255,255,0.6);text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">Recovery Guide</a></li>
+          <li><a href="#" style="font-family:-apple-system,sans-serif;font-size:0.9rem;color:rgba(255,255,255,0.6);text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">Blog</a></li>
+          <li><a href="#" style="font-family:-apple-system,sans-serif;font-size:0.9rem;color:rgba(255,255,255,0.6);text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">Research</a></li>
+          <li><a href="#" style="font-family:-apple-system,sans-serif;font-size:0.9rem;color:rgba(255,255,255,0.6);text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">FAQ</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 style="font-family:-apple-system,sans-serif;font-size:0.75rem;font-weight:700;color:rgba(255,255,255,0.35);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:16px;">Support</h4>
+        <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px;">
+          <li><a href="#" style="font-family:-apple-system,sans-serif;font-size:0.9rem;color:rgba(255,255,255,0.6);text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">Contact Us</a></li>
+          <li><a href="#" style="font-family:-apple-system,sans-serif;font-size:0.9rem;color:rgba(255,255,255,0.6);text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">Privacy Policy</a></li>
+          <li><a href="#" style="font-family:-apple-system,sans-serif;font-size:0.9rem;color:rgba(255,255,255,0.6);text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">Terms of Service</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div style="display:flex;align-items:center;justify-content:space-between;padding-top:28px;">
+      <p class="body-text" style="font-size:0.8125rem;color:rgba(255,255,255,0.3);">© 2026 EmieWell. All rights reserved.</p>
+      <p class="body-text" style="font-size:0.8125rem;color:rgba(255,255,255,0.3);">Made with care for mothers everywhere.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ── Word cycling animation ───────────────────────
+  const words = ['Care', 'Meals', 'Night Support', 'Lactation', 'Mental Healthcare'];
+  let idx = 0;
+  const el = document.getElementById('cycleWord');
+
+  function nextWord() {
+    // Exit: fade up
+    el.classList.add('exiting');
+    setTimeout(() => {
+      // Swap text while invisible
+      idx = (idx + 1) % words.length;
+      el.textContent = words[idx];
+      // Reset to enter-from-below state (no transition)
+      el.classList.remove('exiting');
+      el.classList.add('entering');
+      // Force reflow so the entering state registers
+      void el.offsetWidth;
+      // Animate in
+      el.classList.remove('entering');
+    }, 350);
+  }
+
+  setInterval(nextWord, 2600);
+
+  // ── Smooth scroll ────────────────────────────────
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  // ── Fade-in on scroll ────────────────────────────
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.card').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(24px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
+    observer.observe(el);
+  });
+</script>
+
+</body>
+</html>
